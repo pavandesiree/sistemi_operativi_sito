@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programma svolto - Sistemi Operativi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #fcfbf8;
+      --surface-2: #f0ede7;
+      --text: #25211c;
+      --muted: #666159;
+      --line: #d8d1c7;
+      --accent: #0f6a72;
+      --accent-dark: #09474d;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(31, 24, 18, 0.08);
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Work Sans', sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f7f6f2 0%, #f1eee8 100%);
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 14px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+      background: #fff;
+      padding: 0.75rem 1rem;
+      z-index: 10;
+      border-radius: 10px;
+    }
+
+    header {
+      padding: 1rem 0 0;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(8px);
+      background: rgba(247, 246, 242, 0.85);
+      border-bottom: 1px solid rgba(216, 209, 199, 0.7);
+      z-index: 5;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-weight: 600;
+    }
+
+    .brand svg {
+      width: 38px;
+      height: 38px;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      display: inline-block;
+      padding: 0.65rem 0.95rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    nav a:hover,
+    .btn:hover {
+      background: var(--surface-2);
+    }
+
+    .hero {
+      padding: 4.5rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .panel,
+    .gallery,
+    .card {
+      background: rgba(252, 251, 248, 0.85);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 2rem;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 106, 114, 0.1);
+      color: var(--accent-dark);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Instrument Serif', serif;
+      line-height: 1.05;
+      margin: 0 0 1rem;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+    }
+
+    h3 {
+      font-size: 1.6rem;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+    }
+
+    .hero-aside {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #11565d 0%, #0c3f44 100%);
+      color: #f7f6f2;
+    }
+
+    .hero-aside p,
+    .hero-aside li {
+      color: rgba(247, 246, 242, 0.86);
+    }
+
+    .hero-aside ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 1.15rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    main section {
+      padding: 1rem 0 2.75rem;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1.5rem;
+      align-items: end;
+      margin-bottom: 1.25rem;
+    }
+
+    .panel {
+      padding: 1.5rem;
+    }
+
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 1.3rem;
+    }
+
+    .bullets {
+      margin: 0;
+      padding-left: 1.15rem;
+      color: var(--muted);
+    }
+
+    .bullets li {
+      margin-bottom: 0.55rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .step {
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+
+    .step strong {
+      color: var(--text);
+    }
+
+    .gallery {
+      padding: 1rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      align-items: start;
+    }
+
+    .gallery figure {
+      margin: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 0.45rem;
+      display: flex;
+      flex-direction: column;
+      align-self: start;
+    }
+
+    .gallery figure img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .gallery figcaption {
+      padding: 0.55rem 0.2rem 0.15rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .files {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .file-link {
+      padding: 0.8rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 1rem 0 3rem;
+    }
+
+    .footer-card {
+      padding: 1.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .section-head,
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      header {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header>
+    <div class="container nav">
+      <div class="brand" aria-label="Logo del sito">
+        <svg
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Logo sistemi operativi"
+        >
+          <rect
+            x="8"
+            y="10"
+            width="48"
+            height="30"
+            rx="8"
+            stroke="currentColor"
+            stroke-width="3"
+          />
+          <path
+            d="M20 48H44"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <path
+            d="M26 40V48"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <path
+            d="M38 40V48"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <path
+            d="M18 22H46"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <circle cx="24" cy="29" r="2.5" fill="currentColor" />
+          <circle cx="32" cy="29" r="2.5" fill="currentColor" />
+          <circle cx="40" cy="29" r="2.5" fill="currentColor" />
+        </svg>
+        <span>Programma di Sistemi Operativi</span>
+      </div>
+
+      <nav aria-label="Navigazione principale">
+        <ul>
+          <li><a href="#sistemi">Sistemi Operativi</a></li>
+          <li><a href="#unix">Unix</a></li>
+          <li><a href="#virtualizzazione">Virtualizzazione</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenuto">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <span class="eyebrow">Lavoro svolto da Pavan Desirèe</span>
+          <h1>I miei lavori sui Sistemi Operativi</h1>
+          <p>
+            Questo sito raccoglie il programma svolto e i materiali realizzati durante il percorso di
+            Sistemi Operativi: ricerca teorica, domande con risposte, presentazione PowerPoint,
+            sintesi su Unix e progetto di virtualizzazione con Ubuntu.
+          </p>
+          <div class="btn-row">
+            <a class="btn primary" href="#sistemi">Vedi il programma</a>
+            <a class="btn" href="#virtualizzazione">Guarda la galleria</a>
+          </div>
+        </div>
+
+        <aside class="hero-card hero-aside">
+          <div>
+            <h3>Contenuti del sito</h3>
+            <ul>
+              <li>Ricerca e domande sui sistemi operativi.</li>
+              <li>Riassunto essenziale su Unix.</li>
+              <li>Relazione sulla macchina virtuale con Ubuntu.</li>
+            </ul>
+          </div>
+          <p>
+            Struttura ordinata, stile pulito e materiali allegati direttamente consultabili dal sito.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="sistemi">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Parte 1</span>
+            <h2>Sistemi Operativi</h2>
+          </div>
+          <p>
+            In questa parte vengono presentati i lavori svolti sul sistema operativo come software di
+            base, sul ruolo del kernel, sulla gestione delle risorse e sul confronto tra i principali
+            sistemi operativi moderni.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="panel">
+            <h3>Lavori realizzati</h3>
+            <ul class="bullets">
+              <li>Ricerca autonoma sui sistemi operativi e sulla loro evoluzione.</li>
+              <li>Risposte a domande base, intermedie e pratiche.</li>
+              <li>Creazione di una presentazione PowerPoint sui Sistemi Operativi.</li>
+            </ul>
+            <div class="files">
+              <a
+                class="file-link"
+                href="./assets/Sistemi_Operativi.docx"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Scarica il documento
+              </a>
+              <a
+                class="file-link"
+                href="./assets/Sistemi_Operativi.pptx"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Scarica la presentazione
+              </a>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h3>Argomenti affrontati</h3>
+            <ul class="bullets">
+              <li>Definizione di sistema operativo e funzione del kernel.</li>
+              <li>Differenza tra hardware e software, processo e thread.</li>
+              <li>Multitasking, memoria virtuale, file system e boot.</li>
+              <li>User space e kernel space.</li>
+              <li>
+                Comandi Linux come <code>ps</code>, <code>top</code>, <code>chmod</code>,
+                <code>chown</code>, <code>free -h</code> e <code>kill</code>.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="unix">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Parte 2</span>
+            <h2>Unix</h2>
+          </div>
+          <p>
+            Unix è uno dei sistemi operativi più importanti nella storia dell’informatica perché ha
+            influenzato direttamente Linux, macOS e molti sistemi moderni.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Storia</h3>
+            <ul class="bullets">
+              <li>Nato alla fine degli anni Sessanta nei Bell Labs.</li>
+              <li>Progettato per essere stabile, multiutente e multitasking.</li>
+              <li>Ha dato origine a molte varianti e ha ispirato Linux.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Caratteristiche</h3>
+            <ul class="bullets">
+              <li>Uso della riga di comando per il controllo del sistema.</li>
+              <li>Gestione di utenti, permessi e processi.</li>
+              <li>Struttura modulare e grande portabilità.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Importanza</h3>
+            <ul class="bullets">
+              <li>Ha introdotto concetti ancora usati oggi.</li>
+              <li>È alla base di molti ambienti server e universitari.</li>
+              <li>
+                Ha reso popolare una filosofia semplice e potente: strumenti piccoli che fanno bene un
+                compito preciso.
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="virtualizzazione">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Parte 3</span>
+            <h2>Macchina virtuale Ubuntu</h2>
+          </div>
+          <p>
+            In questa attività è stata installata e configurata una macchina virtuale con Ubuntu
+            tramite Oracle VirtualBox, con cartella condivisa, Guest Additions e gestione di utenti
+            con privilegi diversi.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="panel">
+            <h3>Configurazione usata</h3>
+            <ul class="bullets">
+              <li>Software di virtualizzazione: Oracle VirtualBox.</li>
+              <li>Sistema operativo guest: Ubuntu 24.04 LTS.</li>
+              <li>RAM assegnata: 2048 MB.</li>
+              <li>Disco virtuale: 20 GB in formato VDI, allocazione dinamica.</li>
+              <li>Rete: NAT predefinita.</li>
+            </ul>
+            <div class="files">
+              <a
+                class="file-link"
+                href="./assets/Relazione_Virtualizzazione.docx"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Scarica la relazione
+              </a>
+            </div>
+          </article>
+
+          <article class="panel">
+            <h3>Fasi principali</h3>
+            <div class="timeline">
+              <div class="step">
+                <strong>1.</strong> Download di VirtualBox e dell'immagine ISO di Ubuntu.
+              </div>
+              <div class="step">
+                <strong>2.</strong> Creazione della macchina virtuale con risorse dedicate.
+              </div>
+              <div class="step">
+                <strong>3.</strong> Installazione guidata di Ubuntu e primo avvio.
+              </div>
+              <div class="step">
+                <strong>4.</strong> Configurazione della cartella condivisa e installazione dei guest
+                tools.
+              </div>
+              <div class="step">
+                <strong>5.</strong> Creazione di un utente amministratore e di un utente standard.
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="gallery" style="margin-top: 1rem;">
+          <h3>Galleria del lavoro svolto</h3>
+          <p>
+            Le immagini mostrano le principali fasi del progetto: download dei software,
+            configurazione della macchina virtuale, installazione di Ubuntu, cartelle condivise e
+            gestione degli utenti.
+          </p>
+
+          <div class="gallery-grid">
+            <figure>
+              <img
+                src="./assets/0.1.png"
+                alt="Pagina di download di VirtualBox"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Download di VirtualBox.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/0.2.png"
+                alt="Download dell'immagine Ubuntu"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Download dell'immagine Ubuntu.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/0.3.png"
+                alt="Creazione della macchina virtuale"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Creazione della macchina virtuale.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/0.4.png"
+                alt="Macchina virtuale configurata"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Macchina virtuale configurata.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/0.5.png"
+                alt="Collegamento del file ISO"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Collegamento del file ISO.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/2.png"
+                alt="Primo avvio del sistema Ubuntu"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Primo avvio del sistema.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/0.6.png"
+                alt="Configurazione della cartella condivisa"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Configurazione cartella condivisa.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/4.png"
+                alt="Creazione degli utenti in Ubuntu"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Creazione degli utenti.</figcaption>
+            </figure>
+
+            <figure>
+              <img
+                src="./assets/5.png"
+                alt="Verifica degli utenti in Ubuntu"
+                width="800"
+                height="450"
+                loading="lazy"
+              />
+              <figcaption>Verifica degli utenti.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-card">
+      <p>
+        Sito portfolio scolastico dedicato al programma svolto di Sistemi Operativi, con materiali
+        allegati e documentazione del progetto di virtualizzazione.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
